@@ -13,9 +13,9 @@ Test Teardown       Common.End Web Test
 
 
 # How to run this Test Suite
-# pybot -d results/SE_Overview_DisplayPlan tests/SE_Overview_DisplayPlan/SE_Overview_DisplayPlan.robot
-# pybot -d results/SE_Overview_DisplayPlan --reporttitle "SE Overview DisplayPlan Report" --logtitle "SE Overview DisplayPlan Log" tests/SE_Overview_DisplayPlan/SE_Overview_DisplayPlan.robot
-# pybot -d results/SE_Overview_DisplayPlan -i demo tests/SE_Overview_DisplayPlan/SE_Overview_DisplayPlan.robot
+# pybot -d C:/results/SE_Overview_DisplayPlan tests/SE_Overview_DisplayPlan/SE_Overview_DisplayPlan.robot
+# pybot -d C:/results/SE_Overview_DisplayPlan --reporttitle "SE Overview DisplayPlan Report" --logtitle "SE Overview DisplayPlan Log" tests/SE_Overview_DisplayPlan/SE_Overview_DisplayPlan.robot
+# pybot -d C:/results/SE_Overview_DisplayPlan -i demo tests/SE_Overview_DisplayPlan/SE_Overview_DisplayPlan.robot
 
 *** Variables ***
 
