@@ -590,7 +590,8 @@ Evaluate Invest,Growth Values and group outlets at step1
     \   ${Cost} =      convert to number  ${Cost}
     \   log many  ${Inv_2018}   ${Inv_2017}  ${Cost}
     \   ${avg_inv_threemths} =  evaluate  (${Inv_2018} + ${Inv_2017})/3
-    \   ${Invest} =  evaluate  (${Cost}/${avg_inv_threemths})*100
+    \   ${Invest} =  run keyword if   ${avg_inv_threemths}!=0   evaluate  (${Cost}/${avg_inv_threemths})*100
+    \   ...                    ELSE   set variable              0
     \   ${Invest} =  convert to number  ${Invest}
     \   # CACULATE GROWTH VALUE
     \   ${pass_Period_2018} =  run keyword and return status            dictionary should contain key   ${Dict_Period_Invoice_2018}  ${outlet}
@@ -688,7 +689,8 @@ Evaluate Invest,Growth Values and group outlets with filter Catgroup at step1
     \   ${Cost} =      convert to number  ${Cost}
     \   log many  ${Inv_2018}   ${Inv_2017}  ${Cost}
     \   ${avg_inv_threemths} =  evaluate  (${Inv_2018} + ${Inv_2017})/3
-    \   ${Invest} =  evaluate  (${Cost}/${avg_inv_threemths})*100
+    \   ${Invest} =  run keyword if   ${avg_inv_threemths}!=0   evaluate  (${Cost}/${avg_inv_threemths})*100
+    \   ...                    ELSE   set variable              0
     \   ${Invest} =  convert to number  ${Invest}
     \   # CACULATE GROWTH VALUE
     \   ${pass_Period_2018} =  run keyword and return status            dictionary should contain key   ${Dict_Period_Invoice_2018}  ${outlet}
@@ -712,14 +714,10 @@ Evaluate Invest,Growth Values and group outlets with filter Catgroup at step1
     \   append to list  ${lst_growth}    ${Growth}
 
     \   log many  ${Invest}  ${Growth}  ${threshold_invest}    ${threshold_growth}
-    \   run keyword if  ${year}==2018 and ${test_month}==01 and ${Period_Inv_2016} == 0          append to list   ${Outlet_Inv_zero_2016}   ${outlet}
-    \   ...    ELSE IF  ${year}==2018 and ${test_month}==02 and ${Period_Inv_2016} == 0          append to list   ${Outlet_Inv_zero_2016}   ${outlet}
-    \   ...    ELSE IF  ${year} == 2018 and ${Period_Inv_2017} == 0                              append to list   ${Outlet_Inv_zero_2017}   ${outlet}
-    \   ...    ELSE IF  ${year} == 2017 and ${Period_Inv_2016} == 0                              append to list   ${Outlet_Inv_zero_2016}   ${outlet}
-    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} > ${threshold_growth}   append to list   ${Gr_DauTuHieuQua}        ${outlet}
-    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} < ${threshold_growth}   append to list   ${Gr_DauTuChuaHieuQua}    ${outlet}
-    \   ...    ELSE IF  ${Invest} > ${threshold_invest} and ${Growth} > ${threshold_growth}   append to list   ${Gr_TangTruong}          ${outlet}
-    \   ...    ELSE IF  ${Invest} > ${threshold_invest} and ${Growth} < ${threshold_growth}   append to list   ${Gr_KhongNenDauTu}       ${outlet}
+    \   run keyword if  ${Invest}>= ${threshold_invest} and ${Growth}<= ${threshold_growth}    append to list   ${Gr_KhongNenDauTu}       ${outlet}
+    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} > ${threshold_growth}    append to list   ${Gr_DauTuHieuQua}        ${outlet}
+    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} < ${threshold_growth}    append to list   ${Gr_DauTuChuaHieuQua}    ${outlet}
+    \   ...    ELSE IF  ${Invest} > ${threshold_invest} and ${Growth} > ${threshold_growth}    append to list   ${Gr_TangTruong}          ${outlet}
 
     log list  ${Gr_DauTuHieuQua}
     log list  ${Gr_DauTuChuaHieuQua}
@@ -781,7 +779,8 @@ Evaluate Invest,Growth Values and group outlets with filter Modelgroup at step1
     \   ${Cost} =      convert to number  ${Cost}
     \   log many  ${Inv_2018}   ${Inv_2017}  ${Cost}
     \   ${avg_inv_threemths} =  evaluate  (${Inv_2018} + ${Inv_2017})/3
-    \   ${Invest} =  evaluate  (${Cost}/${avg_inv_threemths})*100
+    \   ${Invest} =  run keyword if   ${avg_inv_threemths}!=0   evaluate  (${Cost}/${avg_inv_threemths})*100
+    \   ...                    ELSE   set variable              0
     \   ${Invest} =  convert to number  ${Invest}
     \   # CACULATE GROWTH VALUE
     \   ${pass_Period_2018} =  run keyword and return status            dictionary should contain key   ${Dict_Period_Invoice_2018}  ${outlet}
@@ -805,14 +804,10 @@ Evaluate Invest,Growth Values and group outlets with filter Modelgroup at step1
     \   append to list  ${lst_growth}    ${Growth}
 
     \   log many  ${Invest}  ${Growth}  ${threshold_invest}    ${threshold_growth}
-    \   run keyword if  ${year}==2018 and ${test_month}==01 and ${Period_Inv_2016} == 0          append to list   ${Outlet_Inv_zero_2016}   ${outlet}
-    \   ...    ELSE IF  ${year}==2018 and ${test_month}==02 and ${Period_Inv_2016} == 0          append to list   ${Outlet_Inv_zero_2016}   ${outlet}
-    \   ...    ELSE IF  ${year} == 2018 and ${Period_Inv_2017} == 0                              append to list   ${Outlet_Inv_zero_2017}   ${outlet}
-    \   ...    ELSE IF  ${year} == 2017 and ${Period_Inv_2016} == 0                              append to list   ${Outlet_Inv_zero_2016}   ${outlet}
-    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} > ${threshold_growth}   append to list   ${Gr_DauTuHieuQua}        ${outlet}
-    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} < ${threshold_growth}   append to list   ${Gr_DauTuChuaHieuQua}    ${outlet}
-    \   ...    ELSE IF  ${Invest} > ${threshold_invest} and ${Growth} > ${threshold_growth}   append to list   ${Gr_TangTruong}          ${outlet}
-    \   ...    ELSE IF  ${Invest} > ${threshold_invest} and ${Growth} < ${threshold_growth}   append to list   ${Gr_KhongNenDauTu}       ${outlet}
+    \   run keyword if  ${Invest}>= ${threshold_invest} and ${Growth}<= ${threshold_growth}    append to list   ${Gr_KhongNenDauTu}       ${outlet}
+    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} > ${threshold_growth}    append to list   ${Gr_DauTuHieuQua}        ${outlet}
+    \   ...    ELSE IF  ${Invest} < ${threshold_invest} and ${Growth} < ${threshold_growth}    append to list   ${Gr_DauTuChuaHieuQua}    ${outlet}
+    \   ...    ELSE IF  ${Invest} > ${threshold_invest} and ${Growth} > ${threshold_growth}    append to list   ${Gr_TangTruong}          ${outlet}
 
     log list  ${Gr_DauTuHieuQua}
     log list  ${Gr_DauTuChuaHieuQua}
