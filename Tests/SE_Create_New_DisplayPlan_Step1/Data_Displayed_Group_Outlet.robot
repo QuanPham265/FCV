@@ -26,15 +26,24 @@ Custom Test Teardown
 
 Mark Bug Ticket
     [Arguments]  ${testcase_code}
-    run keyword if  '${testcase_code}'=='DATA_GROUP_DAUTUHIEUQUA_CTB_MONEY'  set test message  Failrue by bug ticket #1193
+    run keyword if  '${testcase_code}'=='DATA_GROUP_DAUTUHIEUQUA_CTB_MONEY'  set test message  Failrue by bug ticket #2930
 
 *** Test Cases ***
+Verify all values by inputting outletcode manually
+    [Documentation]  DATA_GROUP_MANUAL
+    [Tags]  demo
+    ${str_outletcode} =  set variable  '337375C00293935','337375C00295164','337375C00293624'
+    Postgres_Server.Connect database
+    Postgres_Server.Manual input string outletcode to evaluate many values  ${TEST_MONTH}  ${LAST_MONTH}  ${TEST_YEAR}  ${DISTRIBUTOR_CODE}  ${str_outletcode}
+    Postgres_Server.Disconnect database
+
 Verify total contribute money and percentage contribution of group DauTuHieuQua
     [Documentation]  DATA_GROUP_DAUTUHIEUQUA_CTB_MONEY
-    [Tags]  Regression  demo
+    [Tags]  Regression
     SignIn.Navigate to web Perfect Store                            ${URL}
     SignIn.Login system                                             ${USERNAME}         ${PASSWORD}
-    ViewElement.Submit Creating New Display Plan                    ${TEST_MONTH}       ${TEST_YEAR}
+#    ViewElement.Submit Creating New Display Plan                    ${TEST_MONTH}       ${TEST_YEAR}
+    ViewElement.View display plan                                   ${TEST_MONTH}       ${TEST_YEAR}
     ViewElement.Edit Detailed Display Plan
     VerifyData.Verify total contribute money and percentage contribution each group   DauTuHieuQua  ${TEST_MONTH}  ${LAST_MONTH}  ${TEST_YEAR}  ${DISTRIBUTOR_CODE}
 
