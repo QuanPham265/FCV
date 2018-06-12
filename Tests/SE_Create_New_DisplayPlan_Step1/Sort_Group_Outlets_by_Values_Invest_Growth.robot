@@ -15,8 +15,8 @@ Test Teardown       Custom Test Teardown
 
 
 # How to run this Test Suite
-# pybot -d C:/results/Sort_Group_Outlets_by_Values_Invest_Growth -i demo  C:/FCV/tests/SE_Create_New_DisplayPlan_Step1/Sort_Group_Outlets_by_Values_Invest_Growth.robot
-# pybot -d C:/results/Sort_Group_Outlets_by_Values_Invest_Growth          C:/FCV/tests/SE_Create_New_DisplayPlan_Step1/Sort_Group_Outlets_by_Values_Invest_Growth.robot
+# pybot -d C:/results/SE_Create_New_DisplayPlan_Step1/Sort_Group_Outlets_by_Values_Invest_Growth -i demo  C:/FCV/tests/SE_Create_New_DisplayPlan_Step1/Sort_Group_Outlets_by_Values_Invest_Growth.robot
+# pybot -d C:/results/SE_Create_New_DisplayPlan_Step1/Sort_Group_Outlets_by_Values_Invest_Growth          C:/FCV/tests/SE_Create_New_DisplayPlan_Step1/Sort_Group_Outlets_by_Values_Invest_Growth.robot
 
 
 *** Variables ***
