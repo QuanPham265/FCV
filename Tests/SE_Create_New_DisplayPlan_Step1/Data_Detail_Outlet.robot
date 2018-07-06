@@ -35,8 +35,8 @@ Verify Invoice History Table of outlet belong to group DauTuHieuQua
     [Tags]  Regression
     SignIn.Navigate to web Perfect Store                            ${URL}
     SignIn.Login system                                             ${USERNAME}         ${PASSWORD}
-#    ViewElement.Submit Creating New Display Plan                    ${TEST_MONTH}       ${TEST_YEAR}
-    ViewElement.View display plan                                   04                  ${TEST_YEAR}
+    ViewElement.Submit Creating New Display Plan                    ${TEST_MONTH}       ${TEST_YEAR}
+#    ViewElement.View display plan                                   04                  ${TEST_YEAR}
     ViewElement.Edit Detailed Display Plan
     ViewElement.Search a outlet code of Group DauTuHieuQua to edit display plan of this outlet   ${CODE_DTHQ}
     VerifyData.Verify history Invoice table     ${LAST_MONTH}       ${TEST_YEAR}   ${CODE_DTHQ_FULL}
@@ -46,8 +46,7 @@ Verify entry display plan of outlet belong to group DauTuHieuQua
     [Tags]  Regression  demo
     SignIn.Navigate to web Perfect Store                            ${URL}
     SignIn.Login system                                             ${USERNAME}         ${PASSWORD}
-#    ViewElement.Submit Creating New Display Plan                    ${TEST_MONTH}       ${TEST_YEAR}
-    ViewElement.View display plan                                   04                  ${TEST_YEAR}
+    ViewElement.Submit Creating New Display Plan                    ${TEST_MONTH}       ${TEST_YEAR}
     ViewElement.Edit Detailed Display Plan
     ViewElement.Search a outlet code of Group DauTuHieuQua to edit display plan of this outlet   ${CODE_DTHQ}
     VerifyData.Verify entry display plan        ${LAST_MONTH}       ${TEST_YEAR}   ${CODE_DTHQ_FULL}

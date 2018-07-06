@@ -5,17 +5,16 @@ Resource  C:/FCV/Resources/VerifyData.robot
 Resource  C:/FCV/Resources/ViewElement.robot
 Library  Dialogs
 
-Documentation       Feature save draft after user SE modify display plan
+Documentation       All remain sub functional of feature Create New Display Plan at Step 1
 ...                 https://docs.google.com/spreadsheets/d/1_W3WEcrJq21LdgyaAJZZdo92WdAHGIH9ZYp5VmlU-3s/edit#gid=463309594
-...                 Luu nhap KHTB
+...                 Search Ma CH
 Metadata            Version     1.8
 Test Setup          Common.Begin Web Test
 Test Teardown       Custom Test Teardown
 
 # How to run this Test Suite
-# pybot -d C:/results/SE_Create_New_DisplayPlan_Step1/Save_Draft -i demo tests/SE_Create_New_DisplayPlan_Step1/Save_Draft.robot
-# pybot -d C:/results/SE_Create_New_DisplayPlan_Step1/Save_Draft         tests/SE_Create_New_DisplayPlan_Step1/Save_Draft.robot
-
+# pybot -d C:/results/SE_Create_New_DisplayPlan_Step1/General -i demo tests/SE_Create_New_DisplayPlan_Step1/General.robot
+# pybot -d C:/results/SE_Create_New_DisplayPlan_Step1/General         tests/SE_Create_New_DisplayPlan_Step1/General.robot
 
 *** Variables ***
 
