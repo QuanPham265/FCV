@@ -119,10 +119,14 @@ Verify ablity group outlets with known values
     ${Nb_DB_DauTuChuaHieuQua} =    get length  ${Gr_DauTuChuaHieuQua}
     ${Nb_DB_TangTruong} =          get length  ${Gr_TangTruong}
     ${Nb_DB_KhongNenDauTu} =       get length  ${Gr_KhongNenDauTu}
+
+    pause execution
     ${Nb_Web_DauTuHieuQua} =       PO_DetailedDisplayPlan_Step1.Get number outlets of each group  DauTuHieuQua
     ${Nb_Web_DauTuChuaHieuQua} =   PO_DetailedDisplayPlan_Step1.Get number outlets of each group  DauTuChuaHieuQua
     ${Nb_Web_TangTruong} =         PO_DetailedDisplayPlan_Step1.Get number outlets of each group  DautTuTangTruong
     ${Nb_Web_KhongNenDauTu} =      PO_DetailedDisplayPlan_Step1.Get number outlets of each group  KhongNenDauTu
+    log to console  ${Nb_Web_DauTuHieuQua}
+    pause execution
 
     should be equal  ${Nb_DB_DauTuHieuQua}          ${Nb_Web_DauTuHieuQua}
     should be equal  ${Nb_DB_DauTuChuaHieuQua}      ${Nb_Web_DauTuChuaHieuQua}
@@ -159,8 +163,8 @@ Verify total contribute money and percentage contribution each group
     ${contr_percent_db} =     convert to number  ${contr_percent_db}  2
     Postgres_Server.Disconnect database
 
-    should not be equal  ${contb_money_web}          ${contb_money_db}
-    should not be equal  ${contr_percent_web}        ${contr_percent_db}
+    should be equal  ${contb_money_web}          ${contb_money_db}
+    should be equal  ${contr_percent_web}        ${contr_percent_db}
 
 Verify growth rate of each group
     [Arguments]  ${group_type}  ${test_month}  ${last_month}  ${year}  ${distributor_code}  ${invest}=8  ${growth}=150  ${cat_group}=None  ${model_group}=None
@@ -248,8 +252,9 @@ Compare items in two list
     [Arguments]  ${list_1}  ${list_2}
     ${size} =  get length   ${list_1}
     :FOR  ${i}   IN RANGE   0     ${size}   #0,1,2...,size
-    \   should be equal as numbers   @{list_1}[${i}]    @{list_2}[${i}]
-    \   log many  @{list_1}[${i}]    @{list_2}[${i}]
+    \   log many          @{list_1}[${i}]    @{list_2}[${i}]
+    \   should be equal   @{list_1}[${i}]    @{list_2}[${i}]
+
 
 Verify entry display plan
     [Arguments]  ${month}  ${year}  ${outlet_code}
@@ -312,8 +317,10 @@ Verify ensure non-existence modelgroupnam thus non-existence percentage invest  
     \   ${percent} =    set variable  @{lst_elements}[2]
 
     \   log many        ${modelname}   ${percent}
-    \   ${status} =     evaluate       "${modelname}" == "${EMPTY}" and "${percent}" == "${EMPTY}"
-    \   should be true  ${status}      FAILURE BY Ticket 2860
+    \   ${status_1} =     evaluate       "${modelname}" == "${EMPTY}" and "${percent}" != "${EMPTY}"
+    \   ${status_2} =     evaluate       "${modelname}" != "${EMPTY}" and "${percent}" == "${EMPTY}"
+    \   ${status} =       evaluate        ${status_1} or ${status_2}
+    \   should not be true  ${status}      FAILURE BY Ticket 2860
 
 Verify target and reality number outlets in table SUMMARY EFFECTIVE INVESTMENT
     [Arguments]  ${month}  ${year}  ${distributor_code}
@@ -415,12 +422,27 @@ Change specific OutletModel in ModelGroup and check
 
     ${outlet_model_after} =  PO_DetailedDisplayPlan_Step1.Get each outletmodel just modified this month   ${outlet_model_group}
     should be equal as strings  ${outlet_model}  ${outlet_model_after}
-
-Save and veriry the change
-    [Arguments]  ${outlet_model_group}  ${outlet_model}
     click element   xpath=//*[text()='Điểu chỉnh']
-    sleep  1s
-    PO_DetailedDisplayPlan_Step1.Edit outlet and verify window detail display plan of outlet is show Group DauTuChuaHieuQua
+    wait until element is not visible  xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=90s
+    wait until element is not visible  xpath=//*[@id="mdb-preloader"]  timeout=90s
+
+Veriry the change after editting outlet_model
+    [Arguments]  ${outlet_model_group}  ${outlet_model}  ${group_outlet}
+    run keyword if  "${group_outlet}" == "DautTuTangTruong"     PO_DetailedDisplayPlan_Step1.Edit outlet and verify window detail display plan of outlet is show Group DautTuTangTruong
+    ...    ELSE IF  "${group_outlet}" == "DauTuChuaHieuQua"     PO_DetailedDisplayPlan_Step1.Edit outlet and verify window detail display plan of outlet is show Group DauTuChuaHieuQua
+    ...    ELSE IF  "${group_outlet}" == "DauTuHieuQua"         PO_DetailedDisplayPlan_Step1.Edit outlet and verify window detail display plan of outlet is show Group DauTuHieuQua
+    ...    ELSE IF  "${group_outlet}" == "KhongNenDauTu"        PO_DetailedDisplayPlan_Step1.Edit outlet and verify window detail display plan of outlet is show Group KhongNenDauTu
+
     ${outlet_model_after} =     PO_DetailedDisplayPlan_Step1.Get each outletmodel just modified this month   ${outlet_model_group}
     should be equal as strings  ${outlet_model}  ${outlet_model_after}
+    click element  xpath=//*[@id="detailModal"]/div/div/div[2]/a[1]
+    wait until element is not visible  xpath=//*[@id="mdb-preloader"]  timeout=90s
+
+Save draft and verify the change again
+    [Arguments]  ${outlet_model_group}  ${outlet_model}  ${group_outlet}  ${outlet_code}
+    PO_DetailedDisplayPlan_Step1.Click button Save Draft
+    ViewElement.Edit Detailed Display Plan
+    ViewElement.Search a outlet code of Group DautTuTangTruong to edit display plan of this outlet    ${CODE_DTTTR}
+    VerifyData.Veriry the change after editting outlet_model
+
 

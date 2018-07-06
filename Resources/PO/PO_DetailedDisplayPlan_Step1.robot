@@ -314,22 +314,22 @@ Verify outlet code searched present of Group KhongNenDauTu
 
 Edit outlet and verify window detail display plan of outlet is show Group DauTuChuaHieuQua
     click element                   xpath=//*[@id="mainInvestmentTable_wrapper"]/div[2]/div/div/div[3]/div[2]/div/table/tbody/tr/td[1]/a[1]
-    wait until element is visible   xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=10s
+    wait until element is visible   xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=30s
     wait until element is not visible   ${ID_preloader}   timeout=90s
 
 Edit outlet and verify window detail display plan of outlet is show Group DauTuHieuQua
     click element                   xpath=//*[@id="mustWinOutletTable_wrapper"]/div[2]/div/div/div[3]/div[2]/div/table/tbody/tr/td[1]/a[1]
-    wait until element is visible   xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=10s
+    wait until element is visible   xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=30s
     wait until element is not visible   ${ID_preloader}   timeout=90s
 
 Edit outlet and verify window detail display plan of outlet is show Group DautTuTangTruong
     click element                   xpath=//*[@id="investToCaptureTable_wrapper"]/div[2]/div/div/div[3]/div[2]/div/table/tbody/tr/td[1]/a[1]
-    wait until element is visible   xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=10s
+    wait until element is visible   xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=30s
     wait until element is not visible   ${ID_preloader}   timeout=90s
 
 Edit outlet and verify window detail display plan of outlet is show Group KhongNenDauTu
     click element                       xpath=//*[@id="stopInvestmentTable_wrapper"]/div[2]/div/div/div[3]/div[2]/div/table/tbody/tr/td[1]/a[1]
-    wait until element is visible       xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=10s
+    wait until element is visible       xpath=//*[@id="detailModal"]/div/div/div[1]  timeout=30s
     wait until element is not visible   ${ID_preloader}   timeout=90s
 
 ##########################
@@ -589,7 +589,7 @@ Get Location cost, display cost, total invest cost and percentage investment
 #############################
 Edit fields in ModelGroup U Ke DBB
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_34']
     ${javascript} =    set variable  $("select[outletModelGroupid = 34]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -609,7 +609,7 @@ Edit fields in ModelGroup U Ke DBB
 
 Edit fields in ModelGroup U IFT
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_50']
     ${javascript} =    set variable  $("select[outletModelGroupid = 50]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -621,7 +621,7 @@ Edit fields in ModelGroup U IFT
 
 Edit fields in ModelGroup SCM
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_35']
     ${javascript} =    set variable  $("select[outletModelGroupid = 35]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -634,7 +634,7 @@ Edit fields in ModelGroup SCM
 
 Edit fields in ModelGroup KE FINO
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_55']
     ${javascript} =    set variable  $("select[outletModelGroupid = 55]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -646,7 +646,7 @@ Edit fields in ModelGroup KE FINO
 
 Edit fields in ModelGroup SUA BOT FRISO
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_39']
     ${javascript} =    set variable  $("select[outletModelGroupid = 39]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -665,7 +665,7 @@ Edit fields in ModelGroup SUA BOT FRISO
 
 Edit fields in ModelGroup NGUYEN KEM
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_37']
     ${javascript} =    set variable  $("select[outletModelGroupid = 37]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -679,7 +679,7 @@ Edit fields in ModelGroup NGUYEN KEM
 
 Edit fields in ModelGroup FRISTI KE HINH CHAI
     [Arguments]  ${outlet_model}
-    click element      xpath=//*[@id="nextMonthTable"]/tbody/tr[2]/td[1]/div
+    click element      xpath=//label[@for='outletModelGroup_su_59']
     ${javascript} =    set variable  $("select[outletModelGroupid = 59]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
 
     ${outlet_model_id} =  set variable if
@@ -689,16 +689,64 @@ Edit fields in ModelGroup FRISTI KE HINH CHAI
     log  ${javascript}
     execute javascript  ${javascript}
 
+Edit fields in ModelGroup SUA BOT DF IFT
+    [Arguments]  ${outlet_model}
+    click element      xpath=//label[@for='outletModelGroup_su_38']
+    ${javascript} =    set variable  $("select[outletModelGroupid = 38]").find($("option[value = %OUTLET_MODEL_ID]")).prop('selected',true);$(".mdb-select").material_select('destroy');$(".mdb-select").material_select();
+
+    ${outlet_model_id} =  set variable if
+    ...        "${outlet_model}" == "DL IFT_12_MAT"               312
+    ...        "${outlet_model}" == "DL IFT_24_MAT"               313
+    ...        "${outlet_model}" == "DL IFT_48_MAT"               316
+    ...        "${outlet_model}" == "DL IFT_96_MAT"               318
+    ...        "${outlet_model}" == "DL IFT_6_MAT"                310
+
+    ${javascript} =  replace string  ${javascript}  %OUTLET_MODEL_ID  ${outlet_model_id}
+    log  ${javascript}
+    execute javascript  ${javascript}
+
 Get each outletmodel just modified this month
     [Arguments]  ${outlet_modegroup}
-    ${dict_modelgroup} =  create dictionary   U_KE_DBB=2  U_IFT=4  SCM=6  KE_FINO=8    SUA_BOT_FRISO=10  NGUYEN_KEM=12   FRISTI_KE_HINH_CHAI=14
+    ${ID_U_KE_DBB_ModelGroup} =             set variable  xpath=//tr[@class='detail_outlet_register_old_group_34']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_U_IFT_ModelGroup} =                set variable  xpath=//tr[@class='detail_outlet_register_old_group_50']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_SCM_ModelGroup} =                  set variable  xpath=//tr[@class='detail_outlet_register_old_group_35']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_KE_FINO_ModelGroup} =              set variable  xpath=//tr[@class='detail_outlet_register_old_group_55']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_SUA_BOT_FRISO_ModelGroup} =        set variable  xpath=//tr[@class='detail_outlet_register_old_group_39']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_NGUYEN_KEM_ModelGroup} =           set variable  xpath=//tr[@class='detail_outlet_register_old_group_37']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_FRISTI_KE_HINH_CHAI_ModelGroup} =  set variable  xpath=//tr[@class='detail_outlet_register_old_group_59']/parent::*/tr[2]/td[2]/div/div[1]/input
+    ${ID_SUA_BOT_DL_IFT_ModelGroup} =       set variable  xpath=//tr[@class='detail_outlet_register_old_group_38']/parent::*/tr[2]/td[2]/div/div[1]/input
 
-    ${idx} =  get from dictionary  ${dict_modelgroup}   ${outlet_modegroup}
-    ${idx} =  convert to string  ${idx}
-    log  ${idx}
+    ${list_modelgroup} =  create list   U_KE_DBB  U_IFT  SCM  KE_FINO    SUA_BOT_FRISO  NGUYEN_KEM   FRISTI_KE_HINH_CHAI  SUA_BOT_DL_IFT
+    ${dict_ID_modelgroup} =  create dictionary  U_KE_DBB=${ID_U_KE_DBB_ModelGroup}       U_IFT=${ID_U_IFT_ModelGroup}    SCM=${ID_SCM_ModelGroup}  KE_FINO=${ID_KE_FINO_ModelGroup}
+    ...                                         NGUYEN_KEM=${ID_NGUYEN_KEM_ModelGroup}   FRISTI_KE_HINH_CHAI=${ID_FRISTI_KE_HINH_CHAI_ModelGroup}  SUA_BOT_DL_IFT=${ID_SUA_BOT_DL_IFT_ModelGroup}
 
-    set test variable            ${OutletModelName}     ${ID_OutletModelName_Edit}
-    ${OutletModelName} =         replace string         ${OutletModelName}             %ORDER_MODELGROUP  ${idx}
-    ${modelname} =               get value              ${OutletModelName}
-    log  ${modelname}
-    [Return]  ${modelname}
+    ${id_outletmodel} =  get from dictionary  ${dict_ID_modelgroup}  ${outlet_modegroup}
+    log  ${id_outletmodel}
+
+    ${value_outletmodel} =  get value  ${id_outletmodel}
+    log  ${value_outletmodel}
+    [Return]  ${value_outletmodel}
+
+
+#    ${idx} =  get from dictionary  ${dict_modelgroup}   ${outlet_modegroup}
+#    ${idx} =  convert to string  ${idx}
+#    log  ${idx}
+#
+#    set test variable            ${OutletModelName}     ${ID_OutletModelName_Edit}
+#    ${OutletModelName} =         replace string         ${OutletModelName}             %ORDER_MODELGROUP  ${idx}
+#    ${modelname} =               get value              ${OutletModelName}
+#    log  ${modelname}
+#    [Return]  ${modelname}
+
+################
+###  BUTTON  ###
+################
+Click button Save Draft
+    wait until element is visible       xpath=//*[@id="saveDraft"]
+    click button                        xpath=//*[@id="saveDraft"]
+    wait until element is visible       xpath=/html/body/div[4]/div/div
+    click element                       xpath=/html/body/div[4]/div/div/div[2]/button[2]
+    wait until element is not visible   ${ID_preloader}   timeout=90s
+
+Click button Next Step
+    click element                       xpath=//*[@id="reviewPlans"]/div[5]/a[2]

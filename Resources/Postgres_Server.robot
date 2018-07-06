@@ -821,6 +821,37 @@ Evaluate Invest,Growth Values and group outlets with filter Modelgroup at step1
 
     [Return]  ${Gr_DauTuHieuQua}  ${Gr_DauTuChuaHieuQua}  ${Gr_TangTruong}  ${Gr_KhongNenDauTu}
 
+Manual input string outletcode to evaluate many values
+    [Arguments]  ${test_month}  ${last_month}  ${year}  ${distributor_code}  ${lst_outletcode}
+    Postgres_Server.Connect database
+
+    ${contb_money_db} =       Postgres_Server.Evaluate Average Invoice value in three months of all outlets        ${test_month}  ${year}  ${lst_outletcode}
+    ${Distr_Invoice_db} =     Postgres_Server.Evaluate Average Invoice value in three months of whole distributor  ${test_month}  ${year}  ${distributor_code}
+    ${contr_percent_db} =     evaluate  ${contb_money_db}/${Distr_Invoice_db}*100
+
+    ${contb_money_db} =       convert to number  ${contb_money_db}    2
+    ${contr_percent_db} =     convert to number  ${contr_percent_db}  2
+
+    ${Period_Invoice_2018}    ${Period_Invoice_2017}  ${Period_Invoice_2016} =   Postgres_Server.Evaluate Average Invoice periodic of all outlets   ${test_month}  ${year}  ${lst_outletcode}
+
+    ${Growth} =  run keyword if  ${year}==2018 and ${test_month}==01    Postgres_Server.Evaluate Growth  ${Period_Invoice_2017}   ${Period_Invoice_2016}
+    ...                 ELSE IF  ${year}==2018 and ${test_month}==02    Postgres_Server.Evaluate Growth  ${Period_Invoice_2017}   ${Period_Invoice_2016}
+    ...                 ELSE IF  ${year}==2018                          Postgres_Server.Evaluate Growth  ${Period_Invoice_2018}   ${Period_Invoice_2017}
+    ...                 ELSE IF  ${year}==2017                          Postgres_Server.Evaluate Growth  ${Period_Invoice_2017}   ${Period_Invoice_2016}
+    ${growth_rate_db} =   convert to number   ${Growth}             2
+
+    ${Invest_money_db} =     Postgres_Server.Get Display Cost and Location Cost of all outlets   ${last_month}  ${year}  ${lst_outletcode}
+    ${Invest_money_dist} =   Postgres_Server.Get Display Cost and Location Cost of all outlets   ${last_month}  ${year}  ${lst_outletcode}
+    ${invest_percent_db} =   evaluate  ${Invest_money_db}/${Invest_money_dist}*100
+    ${invest_percent_db} =    convert to number  ${invest_percent_db}  2
+
+    Postgres_Server.Disconnect database
+
+    log many  ${contr_percent_db}  ${contb_money_db}  ${growth_rate_db}  ${invest_percent_db}  ${Invest_money_db}
+
+
+
+
 ########################
 ### INVOICE HISTORY  ###
 ########################
@@ -902,8 +933,6 @@ Get outletmodel registered of last month
     log       ${statement}
     ${rsl} =  query                     ${statement}
     ${rsl} =  convert to list     ${rsl}
-
-    log list  ${rsl}
 
     ${dict_modelgroupid} =       create dictionary   34=Ụ Kệ DBB     35=SCM   37=NGUYÊN KEM   39=SỮA BỘT FRISO   50=Ụ IFT   55=KỆ FINO   59=Fristi kệ hình chai
     ${modelgroupid} =            create dictionary
